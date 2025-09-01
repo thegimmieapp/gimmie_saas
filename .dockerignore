@@ -1,0 +1,32 @@
+# Node
+node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.pnpm-store
+
+# Build outputs
+dist
+build
+public/widget/gimmie-widget.js
+public/widget/*.map
+
+# Local env & system files
+.env
+.env.*
+.DS_Store
+*.local
+*.swp
+.vscode
+.idea
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Archives
+*.zip
+*.tar
+*.tgz

@@ -1,0 +1,49 @@
+version: "3.9"
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: gimmie-api:local
+    container_name: gimmie_api
+    env_file:
+      - .env
+    environment:
+      # Force HTTPS redirects off for local unless you front with a proxy
+      - ENFORCE_HTTPS=0
+      # Point to redis service
+      - REDIS_URL=redis://redis:6379
+    ports:
+      - "8787:8787"
+    depends_on:
+      - redis
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:8787/api/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+
+  worker:
+    image: gimmie-api:local
+    container_name: gimmie_worker
+    command: ["npm", "run", "worker"]
+    env_file:
+      - .env
+    environment:
+      - ENFORCE_HTTPS=0
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:7-alpine
+    container_name: gimmie_redis
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+
+volumes:
+  redis_data:
