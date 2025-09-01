@@ -1,0 +1,8 @@
+{
+  "name": "gimmie-mobile",
+  "private": true,
+  "version": "0.0.0",
+  "devDependencies": {
+    "babel-plugin-module-resolver": "^5.0.0"
+  }
+}

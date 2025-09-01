@@ -1,0 +1,8 @@
+{
+  "name": "gimmie3",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "check:shared-types": "node scripts/check-shared-types.js"
+  }
+}
